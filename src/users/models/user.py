@@ -1,4 +1,5 @@
 from django.db import models
+from users.helpers.date_helpers import get_current_utc_datetime
 
 
 class User(models.Model):
@@ -24,5 +25,5 @@ class User(models.Model):
         blank=True,
         null=True,
     )
-    created = models.DateTimeField()
-    changed = models.DateTimeField()
+    created = models.DateTimeField(default=get_current_utc_datetime)
+    changed = models.DateTimeField(default=get_current_utc_datetime)
