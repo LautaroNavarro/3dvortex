@@ -1,20 +1,21 @@
-from django.test import TestCase
+from pytest import mark
 from users.models.user import User
 
 
-class TestUser(TestCase):
+@mark.django_db
+class TestUser():
 
     def test_create_and_get_user(self):
         user = User.objects.create(email='lautaro@hotmail.com', password='somepassword')
-        self.assertIsNotNone(user)
+        assert user is not None
         getted_user = User.objects.get(id=user.id)
-        self.assertIsNotNone(getted_user)
-        self.assertEqual(user.id, getted_user.id)
+        assert getted_user is not None
+        assert user.id == getted_user.id
 
     def test_set_and_check_password(self):
         user = User()
         PASSWORD = 'This is a super secure password .!'
         user.set_password(PASSWORD)
-        self.assertNotEqual(user.password, PASSWORD)
-        self.assertFalse(user.check_password('Not the password'))
-        self.assertTrue(user.check_password(PASSWORD))
+        assert user.password != PASSWORD
+        assert user.check_password('Not the password') is False
+        assert user.check_password(PASSWORD) is True
