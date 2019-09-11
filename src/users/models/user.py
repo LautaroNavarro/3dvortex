@@ -10,6 +10,10 @@ class User(models.Model):
     NOT_CONFIRMED_STATUS = 0
     CONFIRMED_STATUS = 1
 
+    COMMON_USER_TYPE = 0
+    ADMIN_USER_TYPE = 1
+    PRINTER_USER_TYPE = 2
+
     name = models.CharField(
         max_length=255,
         blank=True,
@@ -23,6 +27,7 @@ class User(models.Model):
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
     status = models.IntegerField(default=NOT_CONFIRMED_STATUS)
+    access_level = models.IntegerField(default=COMMON_USER_TYPE)
     mercado_pago_id = models.CharField(
         max_length=255,
         blank=True,
