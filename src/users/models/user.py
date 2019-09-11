@@ -1,5 +1,6 @@
-import hashlib
 import binascii
+import hashlib
+import jwt
 from django.db import models
 from users.helpers.date_helpers import get_current_utc_datetime
 from users.helpers.string_helpers import get_random_string
@@ -61,3 +62,16 @@ class User(models.Model):
         )
         password_to_check = binascii.hexlify(password_to_check).decode('ascii')
         return password_to_check == password
+
+    @property
+    def jwt(self):
+        paylaod = {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'access_level': self.access_level,
+        }
+        return jwt.encode(paylaod, self.password, algorithm='HS256').decode()
+
+    def get_payload_from_jwt(self, jwt):
+        return jwt.decode(jwt, self.password, algorithm='HS256')

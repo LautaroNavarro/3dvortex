@@ -2,17 +2,18 @@ from django.http import JsonResponse
 from users.views.request_errors import RequestError
 
 
-def RequestErrorHandler(validation):
+def request_error_handler(run):
     """
-    It receives a binded function that can return request errors.
-    It returns JsonResponses
+    Use this decorator to catch request errors
     """
-    try:
-        validation()
-    except RequestError as error:
-        return JsonResponse(
-            {
-                'error_message': error.error_message,
-            },
-            status=error.status_code,
-        )
+    def wrapper(*args, **kwargs):
+        try:
+            return run(*args, **kwargs)
+        except RequestError as error:
+            return JsonResponse(
+                {
+                    'error_message': error.error_message,
+                },
+                status=error.status_code,
+            )
+    return wrapper
