@@ -1,3 +1,4 @@
+from enum import IntEnum
 import binascii
 import hashlib
 import jwt
@@ -8,12 +9,14 @@ from users.helpers.string_helpers import get_random_string
 
 class User(models.Model):
 
-    NOT_CONFIRMED_STATUS = 0
-    CONFIRMED_STATUS = 1
+    class Status(IntEnum):
+        NOT_CONFIRMED_STATUS = 0
+        CONFIRMED_STATUS = 1
 
-    COMMON_USER_TYPE = 0
-    ADMIN_USER_TYPE = 1
-    PRINTER_USER_TYPE = 2
+    class Type(IntEnum):
+        COMMON_USER_TYPE = 0
+        ADMIN_USER_TYPE = 1
+        PRINTER_USER_TYPE = 2
 
     name = models.CharField(
         max_length=255,
@@ -27,8 +30,8 @@ class User(models.Model):
     )
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
-    status = models.IntegerField(default=NOT_CONFIRMED_STATUS)
-    access_level = models.IntegerField(default=COMMON_USER_TYPE)
+    status = models.IntegerField(default=Status.NOT_CONFIRMED_STATUS.value)
+    access_level = models.IntegerField(default=Type.COMMON_USER_TYPE.value)
     mercado_pago_id = models.CharField(
         max_length=255,
         blank=True,
