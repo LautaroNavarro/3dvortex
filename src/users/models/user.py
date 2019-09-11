@@ -1,5 +1,8 @@
+import hashlib
+import binascii
 from django.db import models
 from users.helpers.date_helpers import get_current_utc_datetime
+from users.helpers.string_helpers import get_random_string
 
 
 class User(models.Model):
@@ -27,3 +30,29 @@ class User(models.Model):
     )
     created = models.DateTimeField(default=get_current_utc_datetime)
     changed = models.DateTimeField(default=get_current_utc_datetime)
+
+    def set_password(self, password):
+        salt = hashlib.sha256(
+            get_random_string(12).encode('utf-8')
+        ).hexdigest().encode('utf-8')
+        pwdhash = hashlib.pbkdf2_hmac(
+            'sha256',
+            password.encode('utf-8'),
+            salt,
+            100000,
+        )
+        pwdhash = binascii.hexlify(pwdhash)
+        self.password = (salt + pwdhash).decode('utf-8')
+        return self.password
+
+    def check_password(self, password_to_check):
+        salt = self.password[:64]
+        password = self.password[64:]
+        password_to_check = hashlib.pbkdf2_hmac(
+            'sha256',
+            password_to_check.encode('utf-8'),
+            salt.encode('ascii'),
+            100000,
+        )
+        password_to_check = binascii.hexlify(password_to_check).decode('ascii')
+        return password_to_check == password

@@ -10,3 +10,11 @@ class TestUser(TestCase):
         getted_user = User.objects.get(id=user.id)
         self.assertIsNotNone(getted_user)
         self.assertEqual(user.id, getted_user.id)
+
+    def test_set_and_check_password(self):
+        user = User()
+        PASSWORD = 'This is a super secure password .!'
+        user.set_password(PASSWORD)
+        self.assertNotEqual(user.password, PASSWORD)
+        self.assertFalse(user.check_password('Not the password'))
+        self.assertTrue(user.check_password(PASSWORD))
