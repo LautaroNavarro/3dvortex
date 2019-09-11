@@ -17,8 +17,8 @@ class User(models.Model):
         null=True,
     )
     email = models.EmailField(max_length=255)
-    status = models.IntegerField(default=NOT_CONFIRMED_STATUS)
     password = models.CharField(max_length=255)
+    status = models.IntegerField(default=NOT_CONFIRMED_STATUS)
     mercado_pago_id = models.CharField(
         max_length=255,
         blank=True,
