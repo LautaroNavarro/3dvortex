@@ -19,3 +19,16 @@ class TestUser():
         assert user.password != PASSWORD
         assert user.check_password('Not the password') is False
         assert user.check_password(PASSWORD) is True
+
+    def test_jwt(self):
+        user = User.objects.create(
+            name='Testing',
+            email='testing@email.com',
+            access_level=User.Type.COMMON_USER_TYPE,
+            password='SOMESUPERSECUREPASSWORD'
+        )
+        payload = user.get_payload_from_jwt(user.jwt)
+        assert payload['id'] == user.id
+        assert payload['name'] == user.name
+        assert payload['email'] == user.email
+        assert payload['access_level'] == user.access_level

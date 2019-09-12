@@ -29,9 +29,9 @@ class AuthenticateView(View):
         self.validate(request)
 
         email, password = request.headers['Authorization'][6:].split(':')
-        user = User.objects.filter(email=base64.b64decode(email.encode('ascii')).decode())
+        user = User.objects.filter(email=base64.b64decode(email.encode('ascii')).decode('ascii'))
         if not user:
             raise BadRequestError('Invalid user or password')
-        if user[0].check_password(base64.b64decode(password.encode('ascii')).decode()):
+        if user[0].check_password(base64.b64decode(password.encode('ascii')).decode('ascii')):
             return JsonResponse({'token': user[0].jwt})
         raise BadRequestError('Invalid user or password')

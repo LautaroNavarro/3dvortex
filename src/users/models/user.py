@@ -60,10 +60,10 @@ class User(models.Model):
         password_to_check = hashlib.pbkdf2_hmac(
             'sha256',
             password_to_check.encode('utf-8'),
-            salt.encode('ascii'),
+            salt.encode('utf-8'),
             100000,
         )
-        password_to_check = binascii.hexlify(password_to_check).decode('ascii')
+        password_to_check = binascii.hexlify(password_to_check).decode('utf-8')
         return password_to_check == password
 
     @property
@@ -74,7 +74,7 @@ class User(models.Model):
             'email': self.email,
             'access_level': self.access_level,
         }
-        return jwt.encode(paylaod, self.password, algorithm='HS256').decode()
+        return jwt.encode(paylaod, self.password, algorithm='HS256').decode('utf-8')
 
-    def get_payload_from_jwt(self, jwt):
-        return jwt.decode(jwt, self.password, algorithm='HS256')
+    def get_payload_from_jwt(self, provided_jwt):
+        return jwt.decode(provided_jwt, self.password, algorithm='HS256')
