@@ -1,17 +1,25 @@
 from django.http import JsonResponse
-from django.views import View
 from users.views.request_errors import BadRequestError
-from users.views.request_error_handler import request_error_handler
+from users.views.base_views import BaseView
 from users.models.user import User
 import base64
 
 
-class AuthenticateView(View):
+class AuthenticateView(BaseView):
+
+    METHOD = BaseView.Method.POST.value
 
     def validate_basic_mechanism(self, authorization_header):
         if authorization_header[:5] == 'basic':
             return True
         return False
+
+    def valid_64_encoding(self, string):
+        try:
+            base64.b64decode(string.encode('ascii')).decode('ascii')
+            return True
+        except Exception:
+            return False
 
     def validate(self, request):
         if not request.headers.get('Authorization'):
@@ -23,11 +31,10 @@ class AuthenticateView(View):
             raise BadRequestError('Bad Authorization header format.')
         if not (user_and_password[0] and user_and_password[1]):
             raise BadRequestError('You must provide email:password on Authorization.')
+        if not (self.valid_64_encoding(user_and_password[0]) and self.valid_64_encoding(user_and_password[1])):
+            raise BadRequestError('Invalid 64 encoding.')
 
-    @request_error_handler
-    def post(self, request):
-        self.validate(request)
-
+    def run(self, request):
         email, password = request.headers['Authorization'][6:].split(':')
         user = User.objects.filter(email=base64.b64decode(email.encode('ascii')).decode('ascii'))
         if not user:

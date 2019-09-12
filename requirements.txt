@@ -4,3 +4,4 @@ ipdb>=0.12.2
 mock>=3.0.5
 PyJWT>=1.7.1
 pytest-django==3.5.1
+factory-boy>=2.12.0
