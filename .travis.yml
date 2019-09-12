@@ -1,0 +1,16 @@
+
+languaje: python
+
+before_script:
+  - sudo /etc/init.d/postgresql stop
+
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker-compose build
+
+script:
+  - docker-compose run django bash -c "pytest"
