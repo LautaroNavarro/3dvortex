@@ -40,7 +40,8 @@ class User(models.Model):
     created = models.DateTimeField(default=get_current_utc_datetime)
     changed = models.DateTimeField(default=get_current_utc_datetime)
 
-    def set_password(self, password):
+    @staticmethod
+    def hash_password(password):
         salt = hashlib.sha256(
             get_random_string(12).encode('utf-8')
         ).hexdigest().encode('utf-8')
@@ -51,7 +52,10 @@ class User(models.Model):
             100000,
         )
         pwdhash = binascii.hexlify(pwdhash)
-        self.password = (salt + pwdhash).decode('utf-8')
+        return (salt + pwdhash).decode('utf-8')
+
+    def set_password(self, password):
+        self.password = self.hash_password(password)
         return self.password
 
     def check_password(self, password_to_check):
