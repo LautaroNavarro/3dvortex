@@ -1,0 +1,25 @@
+[run]
+source =
+  users
+  vortex
+omit =
+    env/*
+    */test*
+    */manage.py
+    src/vortex/wsgi.py
+    */tests/*,
+    */migrations/*,
+    */urls.py,
+    */settings/*,
+    */wsgi.py,
+    */middleware.py,
+    */apps.py,
+    */__init__.py,
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def setUp
+    def test_
+    return raw_input
+    if __name__ == '__main__':

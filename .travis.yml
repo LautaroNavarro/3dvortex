@@ -13,4 +13,4 @@ install:
   - docker-compose build
 
 script:
-  - docker-compose run django bash -c "pytest"
+  - docker-compose run -e COVERALLS_REPO_TOKEN="$repo_token" django bash -c "pytest --cov-report=xml && coveralls"

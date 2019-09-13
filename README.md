@@ -4,3 +4,6 @@
 ## CI
 Travis
 [![Build Status](https://api.travis-ci.com/LautaroNavarro/3dvortext.svg?branch=master)](https://travis-ci.org/LautaroNavarro/3dvortext)
+
+Coverage
+[![Coverage Status](https://coveralls.io/repos/github/LautaroNavarro/3dvortext/badge.svg?branch=)](https://coveralls.io/github/LautaroNavarro/3dvortext?branch=)
