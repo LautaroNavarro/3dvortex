@@ -1,13 +1,19 @@
 from django.http import JsonResponse
-from users.views.request_errors import BadRequestError
-from users.views.base_views import BaseView
+from django.views import View
+from infra.request.errors import BadRequestError
+from infra.views import BaseView
 from users.models.user import User
 import base64
 
 
-class AuthenticateView(BaseView):
+class AuthenticateResourceView(View):
 
-    METHOD = BaseView.Method.POST.value
+    def post(self, request):
+        view = AuthenticateView()
+        return view(request)
+
+
+class AuthenticateView(BaseView):
 
     def validate_basic_mechanism(self, authorization_header):
         if authorization_header[:5] == 'basic':

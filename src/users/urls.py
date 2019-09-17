@@ -1,6 +1,6 @@
 from django.urls import path
-from users.views.authenticate import AuthenticateView
+from users.views.authenticate import AuthenticateResourceView
 
 urlpatterns = [
-    path('authenticate/', AuthenticateView.as_view()),
+    path('authenticate/', AuthenticateResourceView.as_view()),
 ]

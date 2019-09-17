@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from users.views.request_errors import RequestError
+from infra.request.errors import RequestError
 
 
 def request_error_handler(run):

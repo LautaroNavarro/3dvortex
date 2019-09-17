@@ -3,8 +3,8 @@ import mock
 import pytest
 from django.test import Client
 from users.views.authenticate import AuthenticateView
-from users.views.request_errors import BadRequestError
 from users.tests.factories.user_factory import UserFactory
+from infra.request.errors import BadRequestError
 
 
 class TestAuthenticateView():
