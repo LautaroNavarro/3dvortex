@@ -1,5 +1,5 @@
 # 3dvortext
-3d vortex is a web commerce that allow you to print your own 3d models without a 3d printer
+3d vortex is a web service that allow you to print your own 3d models without a 3d printer
 
 ## CI
 Travis
