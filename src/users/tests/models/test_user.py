@@ -32,3 +32,16 @@ class TestUser():
         assert payload['name'] == user.name
         assert payload['email'] == user.email
         assert payload['access_level'] == user.access_level
+
+    def test_validate_password(self):
+        assert User.validate_password('a') is False
+        assert User.validate_password('aaaaaaaaa') is False
+        assert User.validate_password('aaaaaaaaA') is False
+        assert User.validate_password('aaaaaaa2A') is False
+        assert User.validate_password('aaaaaa!2A') is True
+
+    def test_validate_email(self):
+        assert User.validate_email('lautaro') is False
+        assert User.validate_email('lautaro@') is False
+        assert User.validate_email('lautaro@hotmail') is False
+        assert User.validate_email('lautaro@hotmail.com') is True

@@ -1,5 +1,23 @@
+from json.decoder import JSONDecodeError
 from django.http import JsonResponse
 from infra.request.errors import RequestError
+
+
+def json_error_handler(run):
+    """
+    Use this decorator to catch json errors
+    """
+    def wrapper(*args, **kwargs):
+        try:
+            return run(*args, **kwargs)
+        except JSONDecodeError:
+            return JsonResponse(
+                {
+                    'error_message': 'Not a json body',
+                },
+                status=400,
+            )
+    return wrapper
 
 
 def request_error_handler(run):

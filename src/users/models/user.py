@@ -1,8 +1,12 @@
-from enum import IntEnum
+import re
 import binascii
 import hashlib
 import jwt
+import json
+from enum import IntEnum
 from django.db import models
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 from users.helpers.date_helpers import get_current_utc_datetime
 from users.helpers.string_helpers import get_random_string
 
@@ -82,3 +86,31 @@ class User(models.Model):
 
     def get_payload_from_jwt(self, provided_jwt):
         return jwt.decode(provided_jwt, self.password, algorithm='HS256')
+
+    @staticmethod
+    def validate_email(email):
+        try:
+            validate_email(email)
+            return True
+        except ValidationError:
+            return False
+
+    @staticmethod
+    def validate_password(password):
+        if len(password) >= 8:
+            if not password.isupper():
+                if not password.islower():
+                    if re.search('[0-9]', password) is not None:
+                        if re.search('\W', password) is not None:
+                            return True
+        return False
+
+    @property
+    def serialized(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'access_level': self.access_level,
+            'status': self.status,
+        }
