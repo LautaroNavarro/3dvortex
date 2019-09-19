@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'infra',
     'users',
+    'models',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]
@@ -89,3 +90,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Amazon s3
+
+AMAZON_ACCESS_KEY_ID = os.getenv('AMAZON_ACCESS_KEY')
+AMAZON_ACCESS_SECRET_KEY = os.getenv('AMAZON_ACCESS_SECRET_KEY')
+IMAGES_BUCKET_NAME = os.getenv('IMAGES_BUCKET_NAME')
+MODELS_BUCKET_NAME = os.getenv('MODELS_BUCKET_NAME')
+BASE_AMAZON_URL = "https://{BUCKET_NAME}.s3.us-east-2.amazonaws.com/{RESOURCE_NAME}"

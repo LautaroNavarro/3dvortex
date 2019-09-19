@@ -1,6 +1,6 @@
 import factory
 from users.models.user import User
-from users.helpers.date_helpers import get_current_utc_datetime
+from helpers.date_helpers import get_current_utc_datetime
 
 
 class UserFactory(factory.django.DjangoModelFactory):

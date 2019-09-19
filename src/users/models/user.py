@@ -2,13 +2,12 @@ import re
 import binascii
 import hashlib
 import jwt
-import json
 from enum import IntEnum
 from django.db import models
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from users.helpers.date_helpers import get_current_utc_datetime
-from users.helpers.string_helpers import get_random_string
+from helpers.date_helpers import get_current_utc_datetime
+from helpers.string_helpers import get_random_string
 
 
 class User(models.Model):
