@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'infra',
     'users',
     'models',
-    'medias',
+    'image_medias',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]
@@ -95,7 +95,7 @@ STATIC_URL = '/static/'
 
 # Amazon s3
 
-AMAZON_ACCESS_KEY_ID = os.getenv('AMAZON_ACCESS_KEY')
+AMAZON_ACCESS_KEY_ID = os.getenv('AMAZON_ACCESS_KEY_ID')
 AMAZON_ACCESS_SECRET_KEY = os.getenv('AMAZON_ACCESS_SECRET_KEY')
 IMAGES_BUCKET_NAME = os.getenv('IMAGES_BUCKET_NAME')
 MODELS_BUCKET_NAME = os.getenv('MODELS_BUCKET_NAME')

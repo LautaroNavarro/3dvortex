@@ -16,3 +16,8 @@ services:
             - "8000:8000"
         depends_on:
             - db
+        environment:
+            - AMAZON_ACCESS_KEY_ID=${AMAZON_ACCESS_KEY_ID}
+            - AMAZON_ACCESS_SECRET_KEY=${AMAZON_ACCESS_SECRET_KEY}
+            - IMAGES_BUCKET_NAME=${IMAGES_BUCKET_NAME}
+            - MODELS_BUCKET_NAME=${MODELS_BUCKET_NAME}

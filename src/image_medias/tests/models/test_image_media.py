@@ -1,16 +1,15 @@
 import pytest
-from medias.models.media import Media
+from image_medias.models.image_media import ImageMedia
 from users.tests.factories.user_factory import UserFactory
 
 
 @pytest.mark.django_db
-class TestMedia:
+class TestImageMedia:
 
-    def test_create_media(self):
+    def test_create_image_media(self):
         user = UserFactory()
-        media = Media.objects.create(
+        image_media = ImageMedia.objects.create(
             user=user,
-            media_type=Media.MediaType.IMAGE.value,
             url='https://3dvortex-models.s3.us-east-2.amazonaws.com/1.obj',
         )
-        assert media is not None
+        assert image_media is not None

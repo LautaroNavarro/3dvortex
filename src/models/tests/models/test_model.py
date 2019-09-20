@@ -2,8 +2,7 @@ import pytest
 from models.models.model import Model
 from users.tests.factories.user_factory import UserFactory
 from models.tests.factories.category_factory import CategoryFactory
-from medias.tests.factories.media_factory import MediaFactory
-from medias.models.media import Media
+from image_medias.tests.factories.image_media_factory import ImageMediaFactory
 
 
 class TestModel:
@@ -12,15 +11,15 @@ class TestModel:
     def test_create_model(self):
         user = UserFactory()
         category = CategoryFactory()
-        media_model = MediaFactory(media_type=Media.MediaType.MODEL.value)
-        media_image = MediaFactory(media_type=Media.MediaType.MODEL.value)
+        model_media = 1
+        image_media = ImageMediaFactory()
         model = Model.objects.create(
             user=user,
             name="Model name",
             description="This is a really cool model",
-            media_model=media_model,
+            model_media=model_media,
             volume="1.5",
-            media_image=media_image,
+            image_media=image_media,
             privacy=Model.Privacy.PRIVATE.value,
             category=category,
         )
