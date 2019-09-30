@@ -3,6 +3,23 @@
 import os
 import sys
 
+# This is needed to be able to use blender modules
+# Example -> blender --background --python /app/manage.py shell
+
+# global_python_modules = [
+#     '/app',
+#     '/usr/lib/python3.7 ./blender',
+#     '/usr/local/lib/python37.zip',
+#     '/usr/local/lib/python3.7',
+#     '/usr/local/lib/python3.7/lib-dynload',
+#     '/usr/local/lib/python3.7/site-packages',
+# ]
+
+# sys.path.extend(global_python_modules)
+
+# Taking out not known blender parameters
+sys.argv = [arg for arg in sys.argv if arg not in ['blender', '--background', '--python']]
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vortex.settings')

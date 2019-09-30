@@ -1,4 +1,4 @@
-FROM python:3.7.2
+FROM python:3.7
 
 ENV PYTHONUNBUFFERED 1
 ENV AMAZON_ACCESS_KEY_ID $AMAZON_ACCESS_KEY_ID
@@ -9,5 +9,7 @@ ENV MODELS_BUCKET_NAME $MODELS_BUCKET_NAME
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
+RUN apt-get update
+RUN apt-get install blender -y
 COPY ./src /app
