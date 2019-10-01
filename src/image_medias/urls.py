@@ -1,6 +1,6 @@
 from django.urls import path
-from image_medias.views import MediasResourceView
+from image_medias.views import ImageMediasResourceView
 
 urlpatterns = [
-    path('', MediasResourceView.as_view()),
+    path('', ImageMediasResourceView.as_view()),
 ]

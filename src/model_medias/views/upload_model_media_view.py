@@ -1,20 +1,13 @@
 from io import BytesIO
 from django.http import JsonResponse
-from django.views import View
+
 from infra.request.errors import BadRequestError
 from infra.views import BaseView
-from image_medias.models.image_media import ImageMedia
+from model_medias.models.model_media import ModelMedia
 from helpers.view_helpers import requirejwt
 
 
-class ImageMediasResourceView(View):
-
-    def post(self, request):
-        view = UploadImageMediaView()
-        return view(request)
-
-
-class UploadImageMediaView(BaseView):
+class UploadModelMediaView(BaseView):
 
     @requirejwt
     def validate(self, request):
@@ -23,6 +16,6 @@ class UploadImageMediaView(BaseView):
 
     def run(self, request):
         data = BytesIO(request.body)
-        image_media = ImageMedia.objects.create(user_id=self.user_payload['id'])
-        image_media.upload_image(data)
-        return JsonResponse(image_media.serialized)
+        model_media = ModelMedia.objects.create(user_id=self.user_payload['id'])
+        model_media.upload_model(data)
+        return JsonResponse(model_media.serialized)

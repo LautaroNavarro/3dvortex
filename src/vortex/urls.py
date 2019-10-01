@@ -21,4 +21,5 @@ from django.urls import (
 urlpatterns = [
     path('users/', include('users.urls')),
     path('image_medias/', include('image_medias.urls')),
+    path('model_medias/', include('model_medias.urls')),
 ]

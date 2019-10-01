@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'models',
     'image_medias',
+    'model_medias',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]

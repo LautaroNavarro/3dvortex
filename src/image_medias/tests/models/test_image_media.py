@@ -10,6 +10,6 @@ class TestImageMedia:
         user = UserFactory()
         image_media = ImageMedia.objects.create(
             user=user,
-            url='https://3dvortex-models.s3.us-east-2.amazonaws.com/1.obj',
+            url='https://3dvortex-models.s3.us-east-2.amazonaws.com/1.png',
         )
         assert image_media is not None
