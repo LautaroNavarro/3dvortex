@@ -4,12 +4,12 @@ from django.http import JsonResponse
 from infra.request.errors import BadRequestError
 from infra.views import BaseView
 from model_medias.models.model_media import ModelMedia
-from helpers.view_helpers import requirejwt
+from helpers.view_helpers import require_jwt
 
 
 class CreateCategoryView(BaseView):
 
-    @requirejwt
+    @require_jwt
     def validate(self, request):
         if not request.content_type == 'application/octet-stream':
             raise BadRequestError('Content type must be octet-stream.')
