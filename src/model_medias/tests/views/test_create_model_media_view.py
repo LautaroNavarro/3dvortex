@@ -1,7 +1,7 @@
 import mock
 import pytest
 from django.test import Client
-from model_medias.views.upload_model_media_view import UploadModelMediaView
+from model_medias.views.model_media_views.create import CreateModelMediaView
 from infra.request.errors import BadRequestError
 from helpers.testing_helpers import get_fake_jwt_request
 from users.tests.factories.user_factory import UserFactory
@@ -11,21 +11,21 @@ from users.tests.factories.user_factory import UserFactory
 class TestUploadImageMediasView:
 
     def test_validate_request_is_octet_stream(self):
-        view = UploadModelMediaView()
+        view = CreateModelMediaView()
         request = get_fake_jwt_request(content_type='application/json')
         with pytest.raises(BadRequestError):
             assert view.validate(request)
 
     def test_validate_request_valid_request(self):
-        view = UploadModelMediaView()
+        view = CreateModelMediaView()
         request = get_fake_jwt_request(content_type='application/octet-stream')
         view.validate(request)
 
-    @mock.patch('model_medias.views.upload_model_media_view.ModelMedia')
+    @mock.patch('model_medias.views.model_media_views.create.ModelMedia')
     def test_run(self, model_media_model_mock):
         user = UserFactory()
         model_media_model_mock.objects.create.return_value.serialized = user.serialized
-        view = UploadModelMediaView()
+        view = CreateModelMediaView()
         data = bytes(
             "\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x01\x03\x00\x00\x00%\xdbV"
             "\xca\x00\x00\x00\x03PLTE\xffM\x00\\58\x7f\x00\x00\x00\nIDATx\x9ccb\x00\x00\x00\x06\x00\x0367|"
@@ -45,7 +45,7 @@ class TestUploadImageMediasView:
 @pytest.mark.django_db
 class TestUploadImageMediasViewIntegration():
 
-    @mock.patch('model_medias.views.upload_model_media_view.ModelMedia.upload_model')
+    @mock.patch('model_medias.views.model_media_views.create.ModelMedia.upload_model')
     def test_upload_image(self, upload_model_mock):
         user = UserFactory()
         data = bytes(

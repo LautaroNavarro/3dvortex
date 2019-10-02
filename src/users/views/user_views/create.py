@@ -1,16 +1,8 @@
 import json
 from django.http import JsonResponse
-from django.views import View
 from infra.request.errors import BadRequestError
 from infra.views import BaseView
 from users.models.user import User
-
-
-class UserResourceView(View):
-
-    def post(self, request):
-        view = CreateUserView()
-        return view(request)
 
 
 class CreateUserView(BaseView):

@@ -2,7 +2,7 @@ import json
 import mock
 import pytest
 from django.test import Client
-from users.views.user import CreateUserView
+from users.views.user_views.create import CreateUserView
 from users.models.user import User
 from users.tests.factories.user_factory import UserFactory
 from infra.request.errors import BadRequestError

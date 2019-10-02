@@ -7,7 +7,7 @@ from model_medias.models.model_media import ModelMedia
 from helpers.view_helpers import requirejwt
 
 
-class UploadModelMediaView(BaseView):
+class CreateCategoryView(BaseView):
 
     @requirejwt
     def validate(self, request):
