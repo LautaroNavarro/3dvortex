@@ -1,5 +1,5 @@
 from django.views import View
-from models.views.categories_view.create import CreateCategoryView
+from models.views.category_views.create_category_view import CreateCategoryView
 
 
 class CategoriesView(View):
