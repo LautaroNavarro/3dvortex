@@ -22,8 +22,8 @@ To work fully the project will need you to define some environment variables
 
 ## Running the project
 
-> **Note:** You will need to install docker and docker-compose before following the steps below
-[docker installation](https://docs.docker.com/v17.09/engine/installation/)
+> **Note:** You will need to install docker and docker-compose before following the steps below<br/>
+[docker installation](https://docs.docker.com/v17.09/engine/installation/)<br/>
 [docker-compose installation](https://docs.docker.com/compose/install/)
 
 #### Build
@@ -44,6 +44,6 @@ Run the command below to **run** the containers
 
 #### Test
 
-Run the command below to run the *tests*
+Run the command below to run the **tests**
 
     docker-compose run django pytest
