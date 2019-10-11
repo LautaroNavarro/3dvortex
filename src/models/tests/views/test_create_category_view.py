@@ -64,7 +64,7 @@ class TestCreateCategoryView:
         view = CreateCategoryView()
         request = get_fake_jwt_request(user=user, body=json.dumps({
             'name': '12',
-            'father_category': 'some',
+            'father_category_id': 'some',
         }))
         with pytest.raises(BadRequestError):
             view.validate(request)
@@ -74,7 +74,7 @@ class TestCreateCategoryView:
         view = CreateCategoryView()
         request = get_fake_jwt_request(user=user, body=json.dumps({
             'name': '12',
-            'father_category': -1,
+            'father_category_id': -1,
         }))
         with pytest.raises(BadRequestError):
             view.validate(request)
@@ -96,7 +96,7 @@ class TestCreateCategoryViewIntegration():
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
         category = CategoryFactory()
         headers = {'HTTP_AUTHORIZATION': 'Bearer {}'.format(user.jwt)}
-        data = {'name': 'furniture', 'father_category': category.id}
+        data = {'name': 'furniture', 'father_category_id': category.id}
         response = Client().post('/categories/', data, content_type='application/json', **headers)
         assert response.status_code == 200
         assert response.json().get('name') == 'furniture'
