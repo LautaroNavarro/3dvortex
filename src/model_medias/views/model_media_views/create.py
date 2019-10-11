@@ -10,11 +10,11 @@ from helpers.view_helpers import require_jwt
 class CreateModelMediaView(BaseView):
 
     @require_jwt
-    def validate(self, request):
+    def validate(self, request, *args, **kwargs):
         if not request.content_type == 'application/octet-stream':
             raise BadRequestError('Content type must be octet-stream.')
 
-    def run(self, request):
+    def run(self, request, *args, **kwargs):
         data = BytesIO(request.body)
         model_media = ModelMedia.objects.create(user_id=self.user_payload['id'])
         model_media.upload_model(data)

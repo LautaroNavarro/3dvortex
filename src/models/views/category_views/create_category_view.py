@@ -9,7 +9,7 @@ from helpers.view_helpers import require_admin
 class CreateCategoryView(BaseView):
 
     @require_admin
-    def validate(self, request):
+    def validate(self, request, *args, **kwargs):
         if not request.content_type == 'application/json':
             raise BadRequestError('Content type must be application/json.')
         if not request.body:
@@ -29,7 +29,7 @@ class CreateCategoryView(BaseView):
         if Category.objects.filter(name=body.get('name')).exists():
             raise BadRequestError('A category with the provided name already exists.')
 
-    def run(self, request):
+    def run(self, request, *args, **kwargs):
         body = json.loads(request.body)
         category = Category.objects.create(name=body.get('name'), father_category_id=body.get('father_category'))
         return JsonResponse(category.serialized)

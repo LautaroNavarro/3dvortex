@@ -27,7 +27,7 @@ class AuthenticateView(BaseView):
         except Exception:
             return False
 
-    def validate(self, request):
+    def validate(self, request, *args, **kwargs):
         if not request.headers.get('Authorization'):
             raise BadRequestError('You must provide an Authorization header.')
         if not self.validate_basic_mechanism(request.headers['Authorization']):
@@ -40,7 +40,7 @@ class AuthenticateView(BaseView):
         if not (self.valid_64_encoding(user_and_password[0]) and self.valid_64_encoding(user_and_password[1])):
             raise BadRequestError('Invalid 64 encoding.')
 
-    def run(self, request):
+    def run(self, request, *args, **kwargs):
         email, password = request.headers['Authorization'][6:].split(':')
         user = User.objects.filter(email=base64.b64decode(email.encode('ascii')).decode('ascii'))
         if not user:

@@ -7,7 +7,7 @@ from users.models.user import User
 
 class CreateUserView(BaseView):
 
-    def run(self, request):
+    def run(self, request, *args, **kwargs):
         user = User(
             email=self.user.get('email'),
             name=self.user.get('name'),
@@ -19,7 +19,7 @@ class CreateUserView(BaseView):
         user.save()
         return JsonResponse(user.serialized)
 
-    def validate(self, request):
+    def validate(self, request, *args, **kwargs):
         self.user = json.loads(request.body)
         if not self.user.get('name'):
             raise BadRequestError('name field is mandatory')

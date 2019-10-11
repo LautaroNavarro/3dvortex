@@ -25,3 +25,11 @@ class NotAuthorizedError(RequestError):
         super().__init__(*args, **kwargs)
         self.error_message = args[0] if args else 'Not authorized'
         self.status_code = 401
+
+
+class NotFoundError(RequestError):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.error_message = args[0] if args else 'Not authorized'
+        self.status_code = 404
