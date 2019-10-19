@@ -115,7 +115,7 @@ class TestUpdateCategoryView:
 @pytest.mark.django_db
 class TestUpdateCategoryViewIntegration():
 
-    def test_upload_image(self):
+    def test_update_category(self):
         father_category = CategoryFactory()
         category = CategoryFactory()
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)

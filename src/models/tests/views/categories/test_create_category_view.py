@@ -92,7 +92,7 @@ class TestCreateCategoryView:
 @pytest.mark.django_db
 class TestCreateCategoryViewIntegration():
 
-    def test_upload_image(self):
+    def test_create_category(self):
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
         category = CategoryFactory()
         headers = {'HTTP_AUTHORIZATION': 'Bearer {}'.format(user.jwt)}
