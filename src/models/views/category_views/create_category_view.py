@@ -11,19 +11,13 @@ class CreateCategoryView(BaseView):
     content_type = 'application/json'
 
     schema = {
-        "type": "object",
-        "properties": {
-            "name": {
-                "type": "string",
-            },
-            "father_category_id": {
-                "type": "integer",
-            },
+        'type': 'object',
+        'properties': {
+            'name': {'type': 'string'},
+            'father_category_id': {'type': 'integer'},
         },
-        "required": [
-            "name",
-        ],
-        "additionalProperties": False,
+        'required': ['name'],
+        'additionalProperties': False,
     }
 
     required_body = True

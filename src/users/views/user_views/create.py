@@ -7,6 +7,22 @@ from users.models.user import User
 
 class CreateUserView(BaseView):
 
+    content_type = 'application/json'
+
+    schema = {
+        'type': 'object',
+        'properties': {
+            'name': {'type': 'string'},
+            'lastname': {'type': 'string'},
+            'email': {'type': 'string'},
+            'password': {'type': 'string'},
+        },
+        'required': ['name', 'lastname', 'email', 'password'],
+        'additionalProperties': False,
+    }
+
+    required_body = True
+
     def run(self, request, *args, **kwargs):
         user = User(
             email=self.user.get('email'),
@@ -20,15 +36,8 @@ class CreateUserView(BaseView):
         return JsonResponse(user.serialized)
 
     def validate(self, request, *args, **kwargs):
+        super().validate(request, *args, **kwargs)
         self.user = json.loads(request.body)
-        if not self.user.get('name'):
-            raise BadRequestError('name field is mandatory')
-        if not self.user.get('lastname'):
-            raise BadRequestError('lastname field is mandatory')
-        if not self.user.get('email'):
-            raise BadRequestError('email field is mandatory')
-        if not self.user.get('password'):
-            raise BadRequestError('password field is mandatory')
         self.validate_email(self.user.get('email'))
         self.validate_password(self.user.get('password'))
 

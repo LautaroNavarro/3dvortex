@@ -63,6 +63,7 @@ class TestAuthenticateView():
     def test_valid_request(self):
         view = CreateUserView()
         request = mock.Mock()
+        request.content_type = 'application/json'
         request.body = json.dumps({
             'name': 'Lautaro',
             'lastname': 'Navarro',

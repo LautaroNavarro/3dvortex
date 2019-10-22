@@ -1,7 +1,6 @@
 from io import BytesIO
 from django.http import JsonResponse
 
-from infra.request.errors import BadRequestError
 from infra.views import BaseView
 from model_medias.models.model_media import ModelMedia
 from helpers.view_helpers import require_jwt
@@ -9,10 +8,13 @@ from helpers.view_helpers import require_jwt
 
 class CreateModelMediaView(BaseView):
 
+    content_type = 'application/octet-stream'
+
+    required_body = True
+
     @require_jwt
     def validate(self, request, *args, **kwargs):
-        if not request.content_type == 'application/octet-stream':
-            raise BadRequestError('Content type must be octet-stream.')
+        super().validate(request, *args, **kwargs)
 
     def run(self, request, *args, **kwargs):
         data = BytesIO(request.body)

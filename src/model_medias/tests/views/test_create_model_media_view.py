@@ -19,6 +19,7 @@ class TestUploadImageMediasView:
     def test_validate_request_valid_request(self):
         view = CreateModelMediaView()
         request = get_fake_jwt_request(content_type='application/octet-stream')
+        request.body = {'some': 1}
         view.validate(request)
 
     @mock.patch('model_medias.views.model_media_views.create.ModelMedia')
