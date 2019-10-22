@@ -9,7 +9,7 @@ ENV MODELS_BUCKET_NAME $MODELS_BUCKET_NAME
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
-RUN pip3 install -r requirements.txt
 RUN apt-get update
 RUN apt-get install blender -y
+RUN pip3 install -r requirements.txt
 COPY ./src /app

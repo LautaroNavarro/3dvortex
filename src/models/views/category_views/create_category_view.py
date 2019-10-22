@@ -8,24 +8,33 @@ from helpers.view_helpers import require_admin
 
 class CreateCategoryView(BaseView):
 
+    content_type = 'application/json'
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+            },
+            "father_category_id": {
+                "type": "integer",
+            },
+        },
+        "required": [
+            "name",
+        ],
+        "additionalProperties": False,
+    }
+
+    required_body = True
+
     @require_admin
     def validate(self, request, *args, **kwargs):
-        if not request.content_type == 'application/json':
-            raise BadRequestError('Content type must be application/json.')
-        if not request.body:
-            raise BadRequestError('You must pass a body on the request')
+        super().validate(request, *args, **kwargs)
         body = json.loads(request.body)
-        if not body.get('name'):
-            raise BadRequestError('You must provide a name.')
-        if not (type(body.get('name')) == str):
-            raise BadRequestError('Name should be a string.')
         if body.get('father_category_id'):
-            if not (type(body.get('father_category_id')) == int):
-                raise BadRequestError('father_category_id must be an integer.')
             if not Category.objects.filter(id=body.get('father_category_id')).exists():
                 raise BadRequestError('A category with the provided father_category_id does not exists.')
-        if not (type(body.get('name')) == str):
-            raise BadRequestError('Name should be a string.')
         if Category.objects.filter(name=body.get('name')).exists():
             raise BadRequestError('A category with the provided name already exists.')
 
