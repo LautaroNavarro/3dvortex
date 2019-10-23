@@ -45,7 +45,7 @@ class TestCreateMaterialView:
     def test_validate_name_is_required_in_schema(self):
         user = UserFactory(access_level=User.Type.PRINTER_USER_TYPE)
         view = CreateMaterialView()
-        request = get_fake_jwt_request(user=user, body=json.dumps({'price_per_kilogram': 'some'}))
+        request = get_fake_jwt_request(user=user, body=json.dumps({'price_per_kilogram': '12.00'}))
         with pytest.raises(BadRequestError):
             view.validate(request)
 
@@ -68,7 +68,7 @@ class TestCreateMaterialView:
         view.validate(request)
 
     @pytest.mark.django_db
-    def test_run_creates_new_category(self):
+    def test_run_creates_new_material(self):
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
         view = CreateMaterialView()
         request = get_fake_jwt_request(user=user, body=json.dumps({
