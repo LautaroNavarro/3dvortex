@@ -1,17 +1,16 @@
 from django.http import JsonResponse
 from infra.views import BaseView
-from models.models.category import Category
+from prints.models.material import Material
 from helpers.view_helpers import require_jwt
 
 
-class ListCategoriesView(BaseView):
+class ListMaterialsView(BaseView):
 
     @require_jwt
     def validate(self, request, *args, **kwargs):
         pass
 
     def run(self, request, *args, **kwargs):
-        response = {
-            'categories': [category.serialized for category in Category.objects.all()],
-        }
-        return JsonResponse(response)
+        return JsonResponse({
+            'materials': [material.serialized for material in Material.objects.all()]
+        })
