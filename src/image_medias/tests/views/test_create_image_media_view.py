@@ -1,7 +1,7 @@
 import mock
 import pytest
 from django.test import Client
-from image_medias.views.image_media_views.create import CreateImageMediaView
+from image_medias.views.image_media_views.create_image_media_view import CreateImageMediaView
 from infra.request.errors import BadRequestError
 from helpers.testing_helpers import get_fake_jwt_request
 from users.tests.factories.user_factory import UserFactory
@@ -22,7 +22,7 @@ class TestUploadImageMediasView:
         request.body = True
         view.validate(request)
 
-    @mock.patch('image_medias.views.image_media_views.create.ImageMedia')
+    @mock.patch('image_medias.views.image_media_views.create_image_media_view.ImageMedia')
     def test_run(self, image_media_model_mock):
         user = UserFactory()
         image_media_model_mock.objects.create.return_value.serialized = user.serialized
@@ -46,7 +46,7 @@ class TestUploadImageMediasView:
 @pytest.mark.django_db
 class TestUploadImageMediasViewIntegration():
 
-    @mock.patch('image_medias.views.image_media_views.create.ImageMedia.upload_image')
+    @mock.patch('image_medias.views.image_media_views.create_image_media_view.ImageMedia.upload_image')
     def test_upload_image(self, upload_image_mock):
         user = UserFactory()
         data = bytes(
