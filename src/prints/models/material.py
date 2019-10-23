@@ -10,3 +10,12 @@ class Material(models.Model):
     price_per_kilogram = models.CharField(max_length=255)
     changed = models.DateTimeField(default=get_current_utc_datetime)
     created = models.DateTimeField(default=get_current_utc_datetime)
+
+    @property
+    def serialized(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'price_per_kilogram': self.price_per_kilogram,
+        }
