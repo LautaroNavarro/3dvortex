@@ -3,6 +3,7 @@ from prints.views.material_views.create_material_view import CreateMaterialView
 from prints.views.material_views.get_material_by_id_view import GetMaterialByIdView
 from prints.views.material_views.list_materials_view import ListMaterialsView
 from prints.views.material_views.update_material_view import UpdateMaterialView
+from prints.views.material_views.delete_material_view import DeleteMaterialView
 
 
 class MaterialsView(View):
@@ -27,4 +28,5 @@ class MaterialsByIdView(View):
         return view(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
-        pass
+        view = DeleteMaterialView()
+        return view(request, *args, **kwargs)
