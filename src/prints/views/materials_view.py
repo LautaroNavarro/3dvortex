@@ -1,5 +1,6 @@
 from django.views import View
 from prints.views.material_views.create_material_view import CreateMaterialView
+from prints.views.material_views.get_material_by_id_view import GetMaterialByIdView
 
 
 class MaterialsView(View):
@@ -15,7 +16,8 @@ class MaterialsView(View):
 class MaterialsByIdView(View):
 
     def get(self, request, *args, **kwargs):
-        pass
+        view = GetMaterialByIdView()
+        return view(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         pass
