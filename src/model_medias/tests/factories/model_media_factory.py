@@ -4,7 +4,7 @@ from users.tests.factories.user_factory import UserFactory
 from helpers.date_helpers import get_current_utc_datetime
 
 
-class ImageMediaFactory(factory.django.DjangoModelFactory):
+class ModelMediaFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ModelMedia

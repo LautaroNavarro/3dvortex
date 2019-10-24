@@ -10,7 +10,7 @@ from infra.request.errors import ForbiddenError
 
 
 @pytest.mark.django_db
-class TestListMaterialsView:
+class TestListImageMediasView:
 
     def test_validate_admin_access_success(self):
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
@@ -25,7 +25,7 @@ class TestListMaterialsView:
         with pytest.raises(ForbiddenError):
             view.validate(request)
 
-    def test_run_get_materials(self):
+    def test_run_get_image_medias(self):
         image_media = ImageMediaFactory()
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
         view = ListImageMediasView()
@@ -39,9 +39,9 @@ class TestListMaterialsView:
 
 
 @pytest.mark.django_db
-class TestListMaterialsViewViewIntegration:
+class TestListImageMediasViewViewIntegration:
 
-    def test_list_categories(self):
+    def test_list_image_medias(self):
         user = UserFactory(access_level=User.Type.ADMIN_USER_TYPE)
         image_media_one = ImageMediaFactory()
         image_media_two = ImageMediaFactory()
