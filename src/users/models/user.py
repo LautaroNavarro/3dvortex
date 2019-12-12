@@ -2,6 +2,7 @@ import re
 import binascii
 import hashlib
 import jwt
+from django.conf import settings
 from enum import IntEnum
 from django.db import models
 from django.core.validators import validate_email
@@ -81,10 +82,11 @@ class User(models.Model):
             'email': self.email,
             'access_level': self.access_level,
         }
-        return jwt.encode(paylaod, self.password, algorithm='HS256').decode('utf-8')
+        return jwt.encode(paylaod, settings.SECRET_KEY, algorithm='HS256').decode('utf-8')
 
-    def get_payload_from_jwt(self, provided_jwt):
-        return jwt.decode(provided_jwt, self.password, algorithm='HS256')
+    @staticmethod
+    def get_payload_from_jwt(provided_jwt):
+        return jwt.decode(provided_jwt, settings.SECRET_KEY, algorithm='HS256')
 
     @staticmethod
     def validate_email(email):

@@ -3,6 +3,7 @@ from django.db import models
 from helpers.date_helpers import get_current_utc_datetime
 from users.models.user import User
 from image_medias.models.image_media import ImageMedia
+from model_medias.models.model_media import ModelMedia
 
 
 class Model(models.Model):
@@ -11,11 +12,22 @@ class Model(models.Model):
         PRIVATE = 0
         PUBLIC = 1
 
+        @classmethod
+        def all_values(cls):
+            return (
+                cls.PRIVATE.value,
+                cls.PUBLIC.value,
+            )
+
+        @classmethod
+        def privacy_id_is_valid(cls, privacy_id):
+            return (privacy_id in cls.all_values())
+
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1024)
-    model_media = models.CharField(max_length=1024)
-    volume = models.CharField(max_length=255)
+    model_media = models.ForeignKey(ModelMedia, on_delete=models.CASCADE, related_name='model_media', default=None)
+    volume = models.CharField(max_length=255, null=True)
     image_media = models.ForeignKey(ImageMedia, on_delete=models.CASCADE, related_name='image_model', default=None)
     privacy = models.IntegerField()
     category = models.ForeignKey('Category', blank=True, null=True, on_delete=models.SET_NULL)

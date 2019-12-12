@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10240000
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +41,15 @@ INSTALLED_APPS = [
     'prints',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'vortex.urls'
 
@@ -102,3 +112,13 @@ AMAZON_ACCESS_SECRET_KEY = os.getenv('AMAZON_ACCESS_SECRET_KEY')
 IMAGES_BUCKET_NAME = os.getenv('IMAGES_BUCKET_NAME')
 MODELS_BUCKET_NAME = os.getenv('MODELS_BUCKET_NAME')
 BASE_AMAZON_URL = "https://{BUCKET_NAME}.s3.us-east-2.amazonaws.com/{RESOURCE_NAME}"
+
+
+# celery config
+
+CELERY_BROKER_URL = 'amqp://user:pass@rabbitmq:5672/vortex'
+# CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+imports = ['vortex.model_medias.tasks']

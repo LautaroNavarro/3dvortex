@@ -5,6 +5,16 @@ services:
         image: postgres
         ports:
             - "5432:5432"
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            - "8080:15672"
+            - "5672:5672"
+            - "5671:5671"
+        environment:
+            - RABBITMQ_DEFAULT_PASS=pass
+            - RABBITMQ_DEFAULT_USER=user
+            - RABBITMQ_DEFAULT_VHOST=vortex
     django:
         build: .
         stdin_open: true
@@ -16,6 +26,20 @@ services:
             - "8000:8000"
         depends_on:
             - db
+            - rabbitmq
+        environment:
+            - AMAZON_ACCESS_KEY_ID=${AMAZON_ACCESS_KEY_ID}
+            - AMAZON_ACCESS_SECRET_KEY=${AMAZON_ACCESS_SECRET_KEY}
+            - IMAGES_BUCKET_NAME=${IMAGES_BUCKET_NAME}
+            - MODELS_BUCKET_NAME=${MODELS_BUCKET_NAME}
+    celery:
+        build: .
+        command: celery -A vortex worker -l info
+        volumes:
+            - ./src:/app
+        depends_on:
+            - db
+            - rabbitmq
         environment:
             - AMAZON_ACCESS_KEY_ID=${AMAZON_ACCESS_KEY_ID}
             - AMAZON_ACCESS_SECRET_KEY=${AMAZON_ACCESS_SECRET_KEY}
