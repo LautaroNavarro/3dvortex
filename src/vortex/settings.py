@@ -39,7 +39,15 @@ INSTALLED_APPS = [
     'prints',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'vortex.urls'
 
