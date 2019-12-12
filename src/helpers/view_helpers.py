@@ -46,8 +46,10 @@ class require_jwt:
         if not user:
             raise NotAuthorizedError('Invalid JWT')
         try:
-            user[0].get_payload_from_jwt('{}.{}.{}'.format(header, payload, signature))
+            User.get_payload_from_jwt('{}.{}.{}'.format(header, payload, signature))
         except jwt.exceptions.PyJWTError:
+            raise NotAuthorizedError('Invalid JWT')
+        if not User.objects.filter(id=user_payload.get('id')).exists():
             raise NotAuthorizedError('Invalid JWT')
         return user_payload
 
