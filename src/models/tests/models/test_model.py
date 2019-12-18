@@ -3,6 +3,7 @@ from models.models.model import Model
 from users.tests.factories.user_factory import UserFactory
 from models.tests.factories.category_factory import CategoryFactory
 from image_medias.tests.factories.image_media_factory import ImageMediaFactory
+from model_medias.tests.factories.model_media_factory import ModelMediaFactory
 
 
 class TestModel:
@@ -11,7 +12,7 @@ class TestModel:
     def test_create_model(self):
         user = UserFactory()
         category = CategoryFactory()
-        model_media = 1
+        model_media = ModelMediaFactory()
         image_media = ImageMediaFactory()
         model = Model.objects.create(
             user=user,
