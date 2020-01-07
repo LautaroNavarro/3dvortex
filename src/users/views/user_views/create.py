@@ -33,7 +33,7 @@ class CreateUserView(BaseView):
         )
         user.set_password(self.user.get('password'))
         user.save()
-        return JsonResponse(user.serialized)
+        return JsonResponse({'token': user.jwt})
 
     def validate(self, request, *args, **kwargs):
         super().validate(request, *args, **kwargs)

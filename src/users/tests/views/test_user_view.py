@@ -8,7 +8,7 @@ from users.tests.factories.user_factory import UserFactory
 from infra.request.errors import BadRequestError
 
 
-class TestAuthenticateView():
+class TestCreateUserView():
 
     def test_validate_name_field_required(self):
         view = CreateUserView()
@@ -97,11 +97,7 @@ class TestAuthenticateView():
         response = view.run(mock.Mock())
         expected_response = bytes(json.dumps(
             {
-                "id": User.objects.get(email='lautaro@hotmail.com').id,
-                "name": "Lautaro",
-                "email": "lautaro@hotmail.com",
-                "access_level": 0,
-                "status": 1,
+                "token": User.objects.get(email='lautaro@hotmail.com').jwt,
             }),
             'utf-8'
         )
@@ -109,7 +105,7 @@ class TestAuthenticateView():
         assert response.content == expected_response
 
 
-class TestAuthenticationViewIntegration():
+class TestCreateUserViewIntegration():
 
     @pytest.mark.django_db
     def test_create_user(self):
