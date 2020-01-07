@@ -79,6 +79,7 @@ class User(models.Model):
         paylaod = {
             'id': self.id,
             'name': self.name,
+            'lastname': self.lastname,
             'email': self.email,
             'access_level': self.access_level,
         }
