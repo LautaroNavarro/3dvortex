@@ -43,6 +43,7 @@ class Model(models.Model):
     )
     privacy = models.IntegerField()
     category = models.ForeignKey('Category', blank=True, null=True, on_delete=models.SET_NULL)
+    printed_quantity = models.IntegerField(default=0)
     changed = models.DateTimeField(default=get_current_utc_datetime)
     created = models.DateTimeField(default=get_current_utc_datetime)
 

@@ -19,5 +19,6 @@ class ModelFactory(factory.django.DjangoModelFactory):
     image_media = factory.SubFactory(ImageMediaFactory)
     privacy = Model.Privacy.PRIVATE.value
     category = None
+    printed_quantity = 0
     created = factory.LazyFunction(get_current_utc_datetime)
     changed = factory.LazyFunction(get_current_utc_datetime)

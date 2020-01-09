@@ -47,6 +47,17 @@ class TestListModelsView:
         assert models_response['models'][0]['id'] == model_two.id
         assert models_response['models'][1]['id'] == model_one.id
 
+    def test_run_list_models_most_printed_filter(self):
+        model_one = ModelFactory(privacy=Model.Privacy.PUBLIC.value, printed_quantity=2)
+        model_two = ModelFactory(privacy=Model.Privacy.PUBLIC.value, printed_quantity=20)
+        view = ListModelsView()
+        request = get_fake_jwt_request(get_params={'newests': ''})
+        response = view.run(request, 1)
+        models_response = json.loads(response.content)
+        assert len(models_response['models']) == 2
+        assert models_response['models'][0]['id'] == model_two.id
+        assert models_response['models'][1]['id'] == model_one.id
+
 
 @pytest.mark.django_db
 class TestListModelsViewViewIntegration:
