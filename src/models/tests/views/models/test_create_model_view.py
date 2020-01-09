@@ -148,7 +148,8 @@ class TestCreateModelView:
         assert response_body['user'] == user.id
         assert response_body['privacy'] == 1
         assert response_body['name'] == 'model name'
-        assert response_body['model_media'] == model_media.id
+        assert response_body['model_media']['id'] == model_media.id
+        assert response_body['model_media']['url'] == model_media.url
         assert response_body['description'] == 'So good description'
         assert response_body['category'] == category.id
         assert Model.objects.filter(id=response_body['id']).exists() is True

@@ -22,9 +22,11 @@ class TestListModelsView:
         assert models_response['models'][0]['user'] == model.user.id
         assert models_response['models'][0]['name'] == model.name
         assert models_response['models'][0]['description'] == model.description
-        assert models_response['models'][0]['model_media'] == model.model_media.id
+        assert models_response['models'][0]['model_media']['id'] == model.model_media.id
+        assert models_response['models'][0]['model_media']['url'] == model.model_media.url
         assert models_response['models'][0]['volume'] == model.volume
-        assert models_response['models'][0]['image_media'] == model.image_media.id
+        assert models_response['models'][0]['image_media']['id'] == model.image_media.id
+        assert models_response['models'][0]['image_media']['url'] == model.image_media.url
         assert models_response['models'][0]['privacy'] == model.privacy
         assert models_response['models'][0]['category'] == model.category
 
@@ -75,8 +77,10 @@ class TestListModelsViewViewIntegration:
         assert models_response['models'][0]['user'] == model_one.user.id
         assert models_response['models'][0]['name'] == model_one.name
         assert models_response['models'][0]['description'] == model_one.description
-        assert models_response['models'][0]['model_media'] == model_one.model_media.id
+        assert models_response['models'][0]['model_media']['id'] == model_one.model_media.id
+        assert models_response['models'][0]['model_media']['url'] == model_one.model_media.url
         assert models_response['models'][0]['volume'] == model_one.volume
-        assert models_response['models'][0]['image_media'] == model_one.image_media.id
+        assert models_response['models'][0]['image_media']['id'] == model_one.image_media.id
+        assert models_response['models'][0]['image_media']['url'] == model_one.image_media.url
         assert models_response['models'][0]['privacy'] == model_one.privacy
         assert models_response['models'][0]['category'] == model_one.category

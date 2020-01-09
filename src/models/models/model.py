@@ -49,14 +49,26 @@ class Model(models.Model):
 
     @property
     def serialized(self):
+        model_media = None
+        if self.model_media:
+            model_media = {
+                'id': self.model_media.id,
+                'url': self.model_media.url,
+            }
+        image_media = None
+        if self.image_media:
+            image_media = {
+                'id': self.image_media.id,
+                'url': self.image_media.url,
+            }
         return {
             'id': self.id,
             'user': self.user.id,
             'name': self.name,
             'description': self.description,
-            'model_media': self.model_media_id,
+            'model_media': model_media,
             'volume': self.volume,
-            'image_media': self.image_media_id,
+            'image_media': image_media,
             'privacy': self.privacy,
             'category': self.category_id,
         }
