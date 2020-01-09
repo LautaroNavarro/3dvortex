@@ -11,6 +11,10 @@ class ListModelsView(PaginatedBaseView):
         pass
 
     def run(self, request, page, *args, **kwargs):
-        return PaginatedResponse('models', Model.objects.filter(
+        order_by = 'id'
+        if 'newests' in request.GET.keys():
+            order_by = '-id'
+        query = Model.objects.filter(
             privacy=Model.Privacy.PUBLIC.value,
-        ), page)
+        ).order_by(order_by)
+        return PaginatedResponse('models', query, page)

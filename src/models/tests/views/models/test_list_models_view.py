@@ -36,6 +36,17 @@ class TestListModelsView:
         models_response = json.loads(response.content)
         assert len(models_response['models']) == 0
 
+    def test_run_list_models_newests_filter(self):
+        model_one = ModelFactory(privacy=Model.Privacy.PUBLIC.value)
+        model_two = ModelFactory(privacy=Model.Privacy.PUBLIC.value)
+        view = ListModelsView()
+        request = get_fake_jwt_request(get_params={'newests': ''})
+        response = view.run(request, 1)
+        models_response = json.loads(response.content)
+        assert len(models_response['models']) == 2
+        assert models_response['models'][0]['id'] == model_two.id
+        assert models_response['models'][1]['id'] == model_one.id
+
 
 @pytest.mark.django_db
 class TestListModelsViewViewIntegration:
