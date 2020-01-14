@@ -1,6 +1,7 @@
 from django.views import View
 from models.views.model_views.create_model_view import CreateModelView
 from models.views.model_views.list_models_view import ListModelsView
+from models.views.model_views.get_model_by_id_view import GetModelByIdView
 
 
 class ModelsView(View):
@@ -17,7 +18,8 @@ class ModelsView(View):
 class ModelsByIdView(View):
 
     def get(self, request, *args, **kwargs):
-        pass
+        view = GetModelByIdView()
+        return view(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         pass

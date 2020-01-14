@@ -122,7 +122,6 @@ class Command(BaseCommand):
         pass
 
     def handle(self, **kwargs):
-        import ipdb; ipdb.set_trace(context=20)
         categories = self.create_categories()
         users = []
 
