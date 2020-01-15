@@ -9,6 +9,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from helpers.date_helpers import get_current_utc_datetime
 from helpers.string_helpers import get_random_string
+from addresses.models.address import Address
 
 
 class User(models.Model):
@@ -41,6 +42,7 @@ class User(models.Model):
         blank=True,
         null=True,
     )
+    addresses = models.ManyToManyField(Address, blank=True)
     created = models.DateTimeField(default=get_current_utc_datetime)
     changed = models.DateTimeField(default=get_current_utc_datetime)
 

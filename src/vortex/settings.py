@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'image_medias',
     'model_medias',
     'prints',
+    'addresses',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
     'corsheaders',
