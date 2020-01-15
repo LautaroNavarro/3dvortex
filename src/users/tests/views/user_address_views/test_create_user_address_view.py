@@ -36,7 +36,7 @@ class TestCreateUserAddressView():
         with pytest.raises(BadRequestError):
             assert view.validate(request, 1)
 
-    def test_validate_no_authorized_field_is_required(self):
+    def test_validate_no_authorized(self):
         view = CreateUserAddressView()
         request = get_fake_jwt_request(body=json.dumps({
             'name': 'My house',

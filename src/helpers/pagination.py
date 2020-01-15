@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-DEFAULT_PAGE_SIZE = 31
+DEFAULT_PAGE_SIZE = 30
 
 
 def PaginatedResponse(entity_name, query, page):
