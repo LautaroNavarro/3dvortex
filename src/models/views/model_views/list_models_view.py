@@ -5,9 +5,6 @@ from helpers.pagination import PaginatedResponse
 
 class ListModelsView(PaginatedBaseView):
 
-    def validate(self, request, *args, **kwargs):
-        pass
-
     def run(self, request, page, *args, **kwargs):
         order_by = []
         filters = {'privacy': Model.Privacy.PUBLIC.value}
