@@ -55,7 +55,7 @@ class CreateModelView(BaseView):
         # Calculate volume
         # Create Model and assign passed parameters along with calculated volume
         body = json.loads(request.body)
-        model = Model.objects.create(
+        model = Model(
             user_id=body['user'],
             name=body['name'],
             description=body.get('description'),
@@ -64,4 +64,10 @@ class CreateModelView(BaseView):
             privacy=body['privacy'],
             category_id=body.get('category'),
         )
+        model.volume = model.get_volume()
+        dimensions = model.get_dimensions_in_mm()
+        model.max_x = dimensions['x']
+        model.max_y = dimensions['y']
+        model.max_z = dimensions['z']
+        model.save()
         return JsonResponse(model.serialized)

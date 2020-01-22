@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+VOLATILE_FILES_PATH = '/tmp/models'
+
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # Application definition
