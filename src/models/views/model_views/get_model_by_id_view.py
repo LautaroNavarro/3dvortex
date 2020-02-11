@@ -13,6 +13,7 @@ class GetModelByIdView(BaseView):
 
     @require_jwt
     def validate(self, request, model_id, *args, **kwargs):
+        super().validate(request, model_id, *args, **kwargs)
         if not Model.objects.filter(id=model_id).exists():
             raise NotFoundError('The provided model id does not exists')
         if Model.objects.filter(

@@ -25,7 +25,7 @@ SECRET_KEY = 'ft7&vef-6*vsb!i)58gw=$ubu!!lf@rm!&!0wn7&5kabcz=1_x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 VOLATILE_FILES_PATH = '/tmp/models'
 

@@ -3,6 +3,7 @@ from models.views.categories_view import CategoriesView
 from models.views.categories_view import CategoriesByIdView
 from models.views.models_view import ModelsView
 from models.views.models_view import ModelsByIdView
+from models.views.models_view import ModelsPrice
 from models.views.models_view import UserModelView
 
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path(BASE_MODEL_URL.format(''), ModelsView.as_view()),
     path(BASE_MODEL_URL.format('<int:model_id>'), ModelsByIdView.as_view()),
     path(BASE_USER_URL.format('<int:user_id>/models'), UserModelView.as_view()),
+    path(BASE_MODEL_URL.format('<int:model_id>/price'), ModelsPrice.as_view()),
 ]

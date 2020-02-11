@@ -54,6 +54,13 @@ class require_jwt:
         return user_payload
 
 
+class optional_jwt(require_jwt):
+    def validate(self, request):
+        if request.headers.get('Authorization'):
+            self.validate_authorization_header(request)
+            self.view.user_payload = self.validate_jwt(request)
+
+
 class require_admin(require_jwt):
     def validate(self, request):
         self.validate_authorization_header(request)

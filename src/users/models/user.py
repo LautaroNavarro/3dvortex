@@ -114,6 +114,7 @@ class User(models.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'lastname': self.lastname,
             'email': self.email,
             'access_level': self.access_level,
             'status': self.status,

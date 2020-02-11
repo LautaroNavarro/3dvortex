@@ -2,6 +2,7 @@ from django.views import View
 from models.views.model_views.create_model_view import CreateModelView
 from models.views.model_views.list_models_view import ListModelsView
 from models.views.model_views.list_user_models import ListUserModelsView
+from models.views.model_views.get_model_price import GetModelPrice
 from models.views.model_views.get_model_by_id_view import GetModelByIdView
 
 
@@ -33,4 +34,11 @@ class UserModelView(View):
 
     def get(self, request, *args, **kwargs):
         view = ListUserModelsView()
+        return view(request, *args, **kwargs)
+
+
+class ModelsPrice(View):
+
+    def get(self, request, *args, **kwargs):
+        view = GetModelPrice()
         return view(request, *args, **kwargs)
