@@ -20,7 +20,7 @@ class ListModelsView(PaginatedBaseView):
         ):
             filters = {}
         if 'name' in request.GET.keys():
-            filters['name__contains'] = request.GET.get('name')
+            filters['name__icontains'] = request.GET.get('name')
         if 'newests' in request.GET.keys():
             order_by.append('-id')
         if 'most_printed' in request.GET.keys():

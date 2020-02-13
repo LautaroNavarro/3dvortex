@@ -12,7 +12,7 @@ class ListUsersView(PaginatedBaseView):
 
     def run(self, request, page, *args, **kwargs):
         if request.GET.get('email'):
-            users = User.objects.filter(email__contains=request.GET.get('email'))
+            users = User.objects.filter(email__icontains=request.GET.get('email'))
         else:
-            users = User.objects.all()
+            users = User.objects.all().order_by('id')
         return PaginatedResponse('users', users, page)

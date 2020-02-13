@@ -1,0 +1,1 @@
+from printers.models.printer import Printer  # noqa

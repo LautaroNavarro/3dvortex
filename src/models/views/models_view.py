@@ -4,6 +4,8 @@ from models.views.model_views.list_models_view import ListModelsView
 from models.views.model_views.list_user_models import ListUserModelsView
 from models.views.model_views.get_model_price import GetModelPrice
 from models.views.model_views.get_model_by_id_view import GetModelByIdView
+from models.views.model_views.delete_model_view import DeleteModelByIdView
+from models.views.model_views.update_model_view import UpdateModelView
 
 
 class ModelsView(View):
@@ -27,7 +29,12 @@ class ModelsByIdView(View):
         pass
 
     def delete(self, request, *args, **kwargs):
-        pass
+        view = DeleteModelByIdView()
+        return view(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        view = UpdateModelView()
+        return view(request, *args, **kwargs)
 
 
 class UserModelView(View):

@@ -24,4 +24,5 @@ urlpatterns = [
     path('model_medias/', include('model_medias.urls')),
     path('', include('models.urls')),
     path('', include('prints.urls')),
+    path('printers/', include('printers.urls')),
 ]

@@ -52,8 +52,6 @@ class CreateModelView(BaseView):
             raise BadRequestError('A category with the provided category id does not exist.')
 
     def run(self, request, *args, **kwargs):
-        # Calculate volume
-        # Create Model and assign passed parameters along with calculated volume
         body = json.loads(request.body)
         model = Model(
             user_id=body['user'],
