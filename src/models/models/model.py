@@ -148,3 +148,6 @@ class Model(models.Model):
             self.download_file()
 
         return stl_utils.calculate_volume(self.get_file_path())
+
+    def calculate_price(self, material_price_per_kilogram, scale=1):
+        return "{0:.2f}".format(float(self.volume) * float(material_price_per_kilogram) * 0.0032 * float(scale))

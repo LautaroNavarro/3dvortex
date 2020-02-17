@@ -23,7 +23,7 @@ class CategoriesByIdView(View):
         view = GetCategoryByIdView()
         return view(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         view = UpdateCategoryView()
         return view(request, *args, **kwargs)
 

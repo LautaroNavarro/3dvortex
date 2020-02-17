@@ -10,6 +10,6 @@ class ListCategoriesView(BaseView):
 
     def run(self, request, *args, **kwargs):
         response = {
-            'categories': [category.serialized for category in Category.objects.all()],
+            'categories': [category.serialized for category in Category.objects.all().order_by('id')],
         }
         return JsonResponse(response)

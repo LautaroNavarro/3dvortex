@@ -29,7 +29,7 @@ class Printer(models.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'address': self.address_id,
+            'address': self.address.serialized if self.address else None,
             'status': self.status,
             'model': self.model,
             'material': self.material.serialized if self.material else None,

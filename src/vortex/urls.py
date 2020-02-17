@@ -19,10 +19,10 @@ from django.urls import (
 )
 
 urlpatterns = [
+    path('', include('models.urls')),
     path('users/', include('users.urls')),
     path('image_medias/', include('image_medias.urls')),
     path('model_medias/', include('model_medias.urls')),
-    path('', include('models.urls')),
     path('', include('prints.urls')),
     path('printers/', include('printers.urls')),
 ]

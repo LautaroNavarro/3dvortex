@@ -1,0 +1,6 @@
+Collecting geopy
+  Downloading geopy-1.21.0-py2.py3-none-any.whl (104 kB)
+Collecting geographiclib<2,>=1.49
+  Downloading geographiclib-1.50-py3-none-any.whl (38 kB)
+Installing collected packages: geographiclib, geopy
+Successfully installed geographiclib-1.50 geopy-1.21.0

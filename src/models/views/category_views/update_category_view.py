@@ -17,7 +17,12 @@ class UpdateCategoryView(BaseView):
         'type': 'object',
         'properties': {
             'name': {'type': 'string'},
-            'father_category_id': {'type': 'integer'},
+            'father_category_id': {
+                "anyOf": [
+                    {"type": "integer"},
+                    {"type": "null"}
+                ]
+            },
         },
         'required': [],
         'additionalProperties': False,
@@ -42,7 +47,7 @@ class UpdateCategoryView(BaseView):
         update_args = {}
         if body.get('name'):
             update_args['name'] = body.get('name')
-        if body.get('father_category_id'):
+        if 'father_category_id' in body:
             update_args['father_category_id'] = body.get('father_category_id')
         Category.objects.filter(id=category_id).update(**update_args)
         return JsonResponse(Category.objects.get(id=category_id).serialized)

@@ -115,3 +115,9 @@ AMAZON_ACCESS_SECRET_KEY = os.getenv('AMAZON_ACCESS_SECRET_KEY')
 IMAGES_BUCKET_NAME = os.getenv('IMAGES_BUCKET_NAME')
 MODELS_BUCKET_NAME = os.getenv('MODELS_BUCKET_NAME')
 BASE_AMAZON_URL = "https://{BUCKET_NAME}.s3.us-east-2.amazonaws.com/{RESOURCE_NAME}"
+
+# Mercado pago
+
+MERCADO_PAGO_TOKEN = os.getenv('MERCADO_PAGO_TOKEN')
+
+BASE_URL = 'http://61b15c61.ngrok.io'

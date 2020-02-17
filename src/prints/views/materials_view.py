@@ -23,7 +23,7 @@ class MaterialsByIdView(View):
         view = GetMaterialByIdView()
         return view(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         view = UpdateMaterialView()
         return view(request, *args, **kwargs)
 

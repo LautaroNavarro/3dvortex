@@ -8,6 +8,7 @@ from users.models.user import User
 from infra.views import BaseView
 from models.models.model import Model
 from helpers.view_helpers import require_jwt
+from prints.models.material import Material
 
 
 class GetModelPrice(BaseView):
@@ -26,6 +27,11 @@ class GetModelPrice(BaseView):
 
         if not request.GET.get('material_id') or not request.GET.get('scale'):
             raise BadRequestError('New query params: material_id, scale')
+        if not Material.objects.filter(id=request.GET['material_id']).exists():
+            raise BadRequestError('Invalid material id.')
 
     def run(self, request, model_id, *args, **kwargs):
-        return JsonResponse({'price': '123.43'})
+        material = Material.objects.get(id=request.GET['material_id'])
+        model = Model.objects.get(id=model_id)
+        price = model.calculate_price(material.price_per_kilogram, request.GET.get('scale'))
+        return JsonResponse({'price': price})

@@ -30,10 +30,13 @@ class require_jwt:
 
     @staticmethod
     def validate_authorization_header(request):
-        if not request.headers.get('Authorization'):
-            raise NotAuthorizedError('You must pass and Authorization header')
-        if not request.headers.get('Authorization')[:6] == 'Bearer':
-            raise NotAuthorizedError('You must pass and Authorization bearer')
+        try:
+            if not request.headers.get('Authorization'):
+                raise NotAuthorizedError('You must pass and Authorization header')
+            if not request.headers.get('Authorization')[:6] == 'Bearer':
+                raise NotAuthorizedError('You must pass and Authorization bearer')
+        except Exception:
+            raise NotAuthorizedError('Invalid Authorization header')
 
     @staticmethod
     def validate_jwt(request):
